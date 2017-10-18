@@ -4,7 +4,7 @@ require 'open-uri'
 require "google_drive"
 
 # Authenticate a session with your Service Account
-session = GoogleDrive::Session.from_service_account_key("config.json")
+# session = GoogleDrive::Session.from_service_account_key("config.json")
 
 # Get the spreadsheet by its title
 # spreadsheet = session.spreadsheet_by_title("tableaumairies")
@@ -26,8 +26,8 @@ def get_the_email_of_a_townhal_from_its_webpage(url)
 end
 
 def get_all_the_urls_of_herault_townhalls(url)
-	 session = GoogleDrive::Session.from_config("config.json")
-	 ws = session.spreadsheet_by_title("tableaumairies").worksheets[0]
+    session = GoogleDrive::Session.from_service_account_key("config.json")
+    ws = session.spreadsheet_by_title("tableaumairies").worksheets[0]
 	 towns_mail_list = Hash.new()
 	 i = 3
 
@@ -42,16 +42,15 @@ def get_all_the_urls_of_herault_townhalls(url)
 
 	 towns_mail_list.each do |key, value|
 			puts "#{key}: #{value} "
-	#   	 i += 250
-    #  		 ws[i, 1] = "#{key}"
-    #  		 ws[i, 2] = "#{value}"
-   	# 		 ws.save	
+	   	 i += 3
+		 ws[i, 1] = "#{key}"
+		 ws[i, 2] = "#{value}"
+		 ws.save	
 	 end
 	
-		# obj = JSON.parse(json)
-		# json = File.read('input.json')
-		# pp obj
-		myList(ws)
+		 obj = JSON.parse(json)
+		 json = File.read('input.json')
+		 pp obj
 end
 
 
